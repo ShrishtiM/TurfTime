@@ -22,7 +22,7 @@ public class UserController {
 	@PostMapping
 	
 	public ResponseEntity<?> registerNewCustomer(@RequestBody UserDTO newCustomer){
-		
+		System.out.println("hello gtekfhdskjf");
 		System.out.println("Hello ");
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(service.addNewCust(newCustomer));
