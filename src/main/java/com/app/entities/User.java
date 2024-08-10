@@ -1,18 +1,19 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -39,7 +40,7 @@ public class User {
 	
 	private String name;
 	
-	@Column(length=20, unique=true)
+	@Column(length=20, unique=true,nullable=false)
 	
 	private String email;
 	
@@ -55,5 +56,7 @@ public class User {
 	
 	@CreationTimestamp
 	private LocalDate regDate;
+	
+	
 	
 }

@@ -31,15 +31,15 @@ public class UserController {
 }
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateCustomer(@PathVariable String email,@RequestBody UserDTO dto)
+	public ResponseEntity<?> updateCustomer(@PathVariable String id,@RequestBody UserDTO dto)
 	{
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(service.updateCust(email,dto));
+				.body(service.updateCust(id,dto));
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteCustomer(@PathVariable String email)
+	public ResponseEntity<?> deleteCustomer(@PathVariable String id )
 	{
-		return ResponseEntity.ok(service.deleteCust(email));
+		return ResponseEntity.ok(service.deleteCust(id));
 	}
 }

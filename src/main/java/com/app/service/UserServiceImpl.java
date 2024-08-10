@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.DTO.ApiResponse;
 import com.app.DTO.UserDTO;
+import com.app.custom_exceptions.InvalidCredentialsException;
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.entities.User;
 import com.app.repository.UserRepo;
@@ -23,14 +24,20 @@ public class UserServiceImpl implements UserService {
 	private ModelMapper mapper;
 	@Autowired
     private PasswordEncoder passwordEncoder;
+	
 	@Override
 	public ApiResponse addNewCust(UserDTO newCust) {
 		
+		if(userRepo.findByEmail(newCust.getEmail()).isEmpty()) {
 		String encodedPassword = passwordEncoder.encode(newCust.getPassword());
 		newCust.setPassword(encodedPassword);
 		User user=mapper.map(newCust, User.class);
 		userRepo.save(user);
+		
 		return new ApiResponse("SignUp Successful");
+		} else
+			throw new InvalidCredentialsException("email already exist!!");
+			
 	}
 	@Override
 	public ApiResponse updateCust(String email, UserDTO dto) {
@@ -42,8 +49,8 @@ public class UserServiceImpl implements UserService {
 		
 		User updatedUser=mapper.map(dto, User.class);
 		user.setName(updatedUser.getName());
-		user.setEmail(updatedUser.getPassword());
-		user.setPassword(updatedUser.getPassword());
+		user.setEmail(updatedUser.getEmail());
+		user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 		user.setPhoneNo(updatedUser.getPhoneNo());
 		msg="Details updated successfully";
 		
