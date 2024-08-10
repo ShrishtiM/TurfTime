@@ -6,4 +6,8 @@ import com.app.DTO.UserDTO;
 public interface UserService {
 	ApiResponse  addNewCust(UserDTO newCust);
 
+	ApiResponse updateCust(String email, UserDTO dto);
+
+	ApiResponse deleteCust(String email);
+
 }
