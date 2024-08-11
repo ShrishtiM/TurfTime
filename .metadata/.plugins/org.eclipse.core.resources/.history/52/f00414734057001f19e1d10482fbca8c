@@ -1,0 +1,49 @@
+package com.app.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.entities.Turf;
+import com.app.service.TurfService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+@RestController
+@RequestMapping("/turfs")
+public class TurfController {
+	
+	@Autowired
+    private TurfService turfService;
+
+    @GetMapping
+    public ResponseEntity<?> getAllTurfs() {
+        return ResponseEntity.ok(turfService.getAllTurfs());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTurfById(@PathVariable Long id) {
+    	return ResponseEntity.ok(turfService.getTurfById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createTurf(@RequestBody Turf turf) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(turfService.createTurf(turf));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTurf(@PathVariable Long id) {
+    	return ResponseEntity.ok(turfService.deleteTurf(id));
+    }
+
+}

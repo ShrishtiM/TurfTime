@@ -1,0 +1,11 @@
+package com.app.entities;
+
+public enum PaymentMethod {
+	CREDIT_CARD,
+    PAYPAL,
+    DEBIT_CARD,
+    NET_BANKING,
+    UPI
+
+
+}

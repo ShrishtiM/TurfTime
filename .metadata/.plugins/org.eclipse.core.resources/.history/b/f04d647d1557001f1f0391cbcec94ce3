@@ -1,0 +1,36 @@
+package com.app.service;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.DTO.ApiResponse;
+import com.app.DTO.BookingDTO;
+import com.app.custom_exceptions.InvalidCredentialsException;
+import com.app.entities.Booking;
+import com.app.entities.User;
+import com.app.repository.BookingRepository;
+import com.app.repository.TurfRepository;
+import com.app.repository.UserRepo;
+@Service
+@Transactional
+public class BookingServiceImpl implements BookingService {
+
+	@Autowired
+	private BookingRepository bookingRepo;
+	@Autowired
+	private UserRepo userRepo;
+	@Autowired
+	private TurfRepository turfRepo;
+	@Override
+	public ApiResponse createBooking(BookingDTO dto) {
+		User user=userRepo.findByEmail(dto.getEmail()).orElseThrow(()->
+		new InvalidCredentialsException("incorrect email"));
+		Booking booking=new Booking();
+		booking.setUser(user);
+		booking.setTurf(turfRepo.getById(1));
+		return null;
+	}
+
+}

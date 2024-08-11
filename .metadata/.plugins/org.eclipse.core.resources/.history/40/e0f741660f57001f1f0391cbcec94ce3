@@ -1,0 +1,9 @@
+package com.app.controller;
+
+import com.app.DTO.ApiResponse;
+import com.app.DTO.BookingDTO;
+
+public interface BookingService {
+	ApiResponse createBooking(BookingDTO dto);
+
+}

@@ -1,0 +1,85 @@
+package com.app.service;
+
+import java.util.ArrayList;
+
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.app.DTO.ApiResponse;
+import com.app.DTO.UserDTO;
+import com.app.custom_exceptions.InvalidCredentialsException;
+import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.entities.User;
+import com.app.repository.UserRepo;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService ,UserDetailsService{
+
+	@Autowired
+	private UserRepo userRepo;
+	@Autowired
+	private ModelMapper mapper;
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
+	@Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepo.findByEmail(email).get();
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                new ArrayList<>());
+    }
+	@Override
+	public ApiResponse addNewCust(UserDTO newCust) {
+		
+		if(userRepo.findByEmail(newCust.getEmail()).isEmpty()) {
+		String encodedPassword = passwordEncoder.encode(newCust.getPassword());
+		newCust.setPassword(encodedPassword);
+		User user=mapper.map(newCust, User.class);
+		userRepo.save(user);
+		
+		return new ApiResponse("SignUp Successful");
+		} else
+			throw new InvalidCredentialsException("email already exist!!");
+			
+	}
+	@Override
+	public ApiResponse updateCust(String email, UserDTO dto) {
+		
+		String msg="Updation failed!!";
+		
+		User user=userRepo.findByEmail(email).orElseThrow(
+				()-> new ResourceNotFoundException("Invalid id,record does not exist"));
+		
+		User updatedUser=mapper.map(dto, User.class);
+		user.setName(updatedUser.getName());
+		user.setEmail(updatedUser.getEmail());
+		user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+		user.setPhoneNo(updatedUser.getPhoneNo());
+		msg="Details updated successfully";
+		
+		return new ApiResponse(msg);
+	}
+	@Override
+	public ApiResponse deleteCust(String email) {
+		userRepo.delete(userRepo.findByEmail(email).orElseThrow(
+				()-> new ResourceNotFoundException("Invalid id,failed to delete")));
+		
+		return new ApiResponse("Deletion sucessful");
+	}
+	public User loadUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
