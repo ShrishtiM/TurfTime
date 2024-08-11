@@ -8,6 +8,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="BlogPostDetails"/>
 			<item value="getMinKeyLength"/>
 			<item value="getMin"/>
 		</list>
