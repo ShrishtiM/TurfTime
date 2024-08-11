@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,8 @@ import com.app.entities.UserEntity;
 import com.app.repository.BookingRepository;
 import com.app.repository.TurfRepository;
 import com.app.repository.UserEntityRepositroy;
+import com.app.utilties.EmailSender;
+import com.app.utilties.PdfGenerator;
 @Service
 @Transactional
 public class BookingServiceImpl implements BookingService {
@@ -27,6 +30,31 @@ public class BookingServiceImpl implements BookingService {
 	private UserEntityRepositroy userRepo;
 	@Autowired
 	private TurfRepository turfRepo;
+	
+	@Autowired
+	private EmailSender emailSender;
+
+	@Autowired
+	private PdfGenerator pdfGenerator;
+
+	public void handleBookingSuccess(Booking booking) {
+	    
+	    
+	    try {
+	        String bookingDetails = generateBookingDetails(booking);
+	        byte[] pdfBytes = pdfGenerator.generateReceiptPdf(bookingDetails);
+	        emailSender.sendEmail(booking.getUser().getEmail(), pdfBytes);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private String generateBookingDetails(Booking booking) {
+	    
+	    return "Booking ID: " + booking.getBookId() + "\nDetails: " +booking.getBookingDate()+ " "+ booking.getCoupon()+ " " + booking.getTotalPrice()+ " " + booking.getSlot()+ " " + booking.getSport() + " " + booking.getTurf();
+	}
+
+	
 	@Override
 	public ApiResponse createBooking(BookingDTO dto) {
 		System.out.println(dto.getName());
@@ -42,6 +70,7 @@ public class BookingServiceImpl implements BookingService {
 		booking.setStatus(Status.CONFIRMED);
 		
 		bookingRepo.save(booking);
+		handleBookingSuccess(booking);
 		return new ApiResponse("Booking Status confirmed ");
 		
 	}

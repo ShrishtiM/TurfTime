@@ -23,16 +23,13 @@ public class BookingDTO {
 	
 	private String name;
 	private String email;
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Long user_id;
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Long turf_id;
+	
 	
 	private String coupon;
 	private LocalDate bookingDate;
 	private Slot slot;
 	private Sport sport;
 	private double price;
-	private Status status;
+	//private Status status;
 
 }
