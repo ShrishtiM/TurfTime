@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import com.app.entities.Slot;
 import com.app.entities.Sport;
-import com.app.entities.Status;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

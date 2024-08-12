@@ -51,7 +51,10 @@ public class BookingServiceImpl implements BookingService {
 
 	private String generateBookingDetails(Booking booking) {
 	    
-	    return "Booking ID: " + booking.getBookId() + "\nDetails: " +booking.getBookingDate()+ " "+ booking.getCoupon()+ " " + booking.getTotalPrice()+ " " + booking.getSlot()+ " " + booking.getSport() + " " + booking.getTurf();
+	    return "Booking ID: " + booking.getBookId() + "\nDetails: " + "Booking Date: "+booking.getBookingDate()+ "\n"+ 
+	    "Coupon (if any): "+booking.getCoupon()+ "\nTotal Booking price: " + booking.getTotalPrice()+ "\nSlot Booked:  " + booking.getSlot()+ 
+	    "\nSport selected: " + booking.getSport() + "\nTurf Details: " + booking.getTurf().getName()+"\n"+ booking.getTurf().getLocation();
+		
 	}
 
 	

@@ -1,6 +1,6 @@
 package com.app.dto;
 
-import org.springframework.security.core.Authentication;
+import com.app.entities.UserEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SigninResponse {
+	
+	
+	
 	private String jwt;
 	private String mesg;
-	private Authentication verifiedAuth; 
+	private UserEntity user; 
 }
