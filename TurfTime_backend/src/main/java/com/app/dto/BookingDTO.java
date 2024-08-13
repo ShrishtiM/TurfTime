@@ -1,7 +1,5 @@
 package com.app.dto;
 
-import java.time.LocalDate;
-
 import com.app.entities.Slot;
 import com.app.entities.Sport;
 
@@ -23,10 +21,10 @@ public class BookingDTO {
 	
 	
 	private String coupon;
-	private LocalDate bookingDate;
+	private String bookingDate;
 	private Slot slot;
 	private Sport sport;
-	private double price;
+	private String price;
 	//private Status status;
 
 }

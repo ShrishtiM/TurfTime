@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.BookingDTO;
 import com.app.dto.SigninRequest;
 import com.app.dto.SigninResponse;
 import com.app.dto.Signup;
@@ -23,6 +24,8 @@ import com.app.entities.UserEntity;
 import com.app.repository.UserEntityRepositroy;
 import com.app.security.JwtUtils;
 import com.app.service.UserService;
+
+import io.swagger.v3.oas.models.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/users")
@@ -40,8 +43,11 @@ public class UserController {
 	// sign up
 	@PostMapping("/signup")
 	public ResponseEntity<?> userSignup(@RequestBody @Valid Signup dto) {
+//	public ResponseEntity<?> userSignup(@RequestBody BookingDTO dto) {
+		
 		System.out.println("in sign up " + dto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.userRegistration(dto));
+//		return ResponseEntity.ok(new com.app.dto.ApiResponse("good"));
 	}
 
 	/*
@@ -51,7 +57,7 @@ public class UserController {
 	 */
 	@PostMapping("/signin")
 	public ResponseEntity<?> signinUser(@RequestBody @Valid SigninRequest reqDTO) {
-		System.out.println("in signin " + reqDTO);
+		//System.out.println("in signin " + reqDTO);
 		// simply invoke authentucate(...) on AuthMgr
 		// i/p : Authentication => un verifed credentials
 		// i/f --> Authentication --> imple by UsernamePasswordAuthToken

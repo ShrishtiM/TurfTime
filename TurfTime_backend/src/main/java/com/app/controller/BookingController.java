@@ -1,7 +1,6 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +19,21 @@ public class BookingController {
 	
 	@Autowired
 	private BookingService service;
+
 	
 	@PostMapping
 	public ResponseEntity<?> createNewBooking(@RequestBody BookingDTO dto)
 	{
+		
+		//BookingDTO dto=httpEntity.getBody();
+//		System.out.println(user.getClass());
+//		System.out.println(user);
 		//BookingDTO dto = httpEntity.getBody();
-		System.out.println(dto.getEmail());
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.createBooking(dto));
+		//logger.info("Received BookingDTO: {}",formData );
+//		System.out.println(formData.getClass());
+//		System.out.println(formData);
+		//return ResponseEntity.status(HttpStatus.CREATED).body(service.createBooking(formData));
+		return ResponseEntity.ok(service.createBooking(dto));
 	}
 
 	@DeleteMapping("/{id}")

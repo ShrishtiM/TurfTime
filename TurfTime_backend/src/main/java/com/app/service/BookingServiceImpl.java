@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -66,10 +67,12 @@ public class BookingServiceImpl implements BookingService {
 		Booking booking=new Booking();
 		booking.setUser(user);
 		booking.setTurf(turfRepo.findById(1l).get());
-		booking.setBookingDate(dto.getBookingDate());
+		
+		booking.setBookingDate(LocalDate.parse(dto.getBookingDate()));
 		booking.setSport(dto.getSport());
 		booking.setSlot(dto.getSlot());
-		booking.setTotalPrice(dto.getPrice());
+		double price=Double.parseDouble(dto.getPrice());
+		booking.setTotalPrice(price);
 		booking.setStatus(Status.CONFIRMED);
 		
 		bookingRepo.save(booking);
