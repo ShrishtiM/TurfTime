@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=D\:\\Project\\.git;
-GitRepositoriesView.GitDirectories.relative=.git;
+GitRepositoriesView.GitDirectories=D\:\\Turf_Backend\\.git;D\:\\Project\\.git;
+GitRepositoriesView.GitDirectories.relative=D\:\\Turf_Backend\\.git;.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

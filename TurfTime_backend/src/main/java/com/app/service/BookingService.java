@@ -12,4 +12,8 @@ public interface BookingService {
 	ApiResponse cancelBooking(Long id);
 
 	List<Booking> getCurrentCustBookings(String uid);
+
+	List<Booking> bookingsForToday();
+	
+	List<Booking> getAllBookings();
 }

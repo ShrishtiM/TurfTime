@@ -1,8 +1,5 @@
 package com.app.dto;
 
-import com.app.entities.Slot;
-import com.app.entities.Sport;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +19,8 @@ public class BookingDTO {
 	
 	private String coupon;
 	private String bookingDate;
-	private Slot slot;
-	private Sport sport;
+	private String slot;
+	private String sport;
 	private String price;
 	//private Status status;
 

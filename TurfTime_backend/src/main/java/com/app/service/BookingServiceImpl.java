@@ -14,6 +14,8 @@ import com.app.custom_exceptions.InvalidCredentialsException;
 import com.app.dto.ApiResponse;
 import com.app.dto.BookingDTO;
 import com.app.entities.Booking;
+import com.app.entities.Slot;
+import com.app.entities.Sport;
 import com.app.entities.Status;
 import com.app.entities.UserEntity;
 import com.app.repository.BookingRepository;
@@ -69,8 +71,8 @@ public class BookingServiceImpl implements BookingService {
 		booking.setTurf(turfRepo.findById(1l).get());
 		
 		booking.setBookingDate(LocalDate.parse(dto.getBookingDate()));
-		booking.setSport(dto.getSport());
-		booking.setSlot(dto.getSlot());
+		booking.setSport(Sport.valueOf(dto.getSport()));
+		booking.setSlot(Slot.valueOf(dto.getSlot()));
 		double price=Double.parseDouble(dto.getPrice());
 		booking.setTotalPrice(price);
 		booking.setStatus(Status.CONFIRMED);
@@ -95,6 +97,18 @@ public class BookingServiceImpl implements BookingService {
 		    Hibernate.initialize(booking.getTurf());
 		});
 	    return bookings;
+	}
+
+	@Override
+	public List<Booking> bookingsForToday() {
+		
+		return bookingRepo.findAllByCurrentDate(LocalDate.now());
+	}
+
+	@Override
+	public List<Booking> getAllBookings() {
+		
+		return bookingRepo.findAll();
 	}
 	
 	

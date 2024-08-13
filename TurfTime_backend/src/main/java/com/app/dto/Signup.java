@@ -39,7 +39,7 @@ public class Signup {
 	private String phoneNo;
 	
 	@JsonProperty(access = Access.READ_ONLY)
-	private UserRole role=UserRole.ROLE_CUSTOMER;
+	private UserRole role;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDate regDate;

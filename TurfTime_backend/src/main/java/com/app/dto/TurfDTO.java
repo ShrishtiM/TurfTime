@@ -2,6 +2,7 @@ package com.app.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -16,6 +17,7 @@ public class TurfDTO {
 	@NotBlank(message = "Name cannot be empty")
     private String name;
 	private String location;
-	private boolean availability;
+	@JsonIgnore
+	private boolean availability=true;
 	private String description;
 }

@@ -16,16 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.BookingDTO;
 import com.app.dto.SigninRequest;
 import com.app.dto.SigninResponse;
 import com.app.dto.Signup;
 import com.app.entities.UserEntity;
+import com.app.entities.UserRole;
 import com.app.repository.UserEntityRepositroy;
 import com.app.security.JwtUtils;
 import com.app.service.UserService;
-
-import io.swagger.v3.oas.models.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/users")
@@ -43,6 +41,7 @@ public class UserController {
 	// sign up
 	@PostMapping("/signup")
 	public ResponseEntity<?> userSignup(@RequestBody @Valid Signup dto) {
+		dto.setRole(UserRole.ROLE_CUSTOMER);
 //	public ResponseEntity<?> userSignup(@RequestBody BookingDTO dto) {
 		
 		System.out.println("in sign up " + dto);
