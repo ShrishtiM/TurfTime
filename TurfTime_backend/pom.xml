@@ -16,7 +16,7 @@
 	<description>Spring security using JWT based authentication using JPA based
 		DB based user details service</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
